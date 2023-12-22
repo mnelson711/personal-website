@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="draw.css">
+    <title>Drawing app</title>
+</head>
+
+<body>
+    <section class="container">
+
+    <div id="toolbar">
+        <h1>Draw.</h1>
+        <label for="stroke">Stroke</label>
+        <input id="stroke" name='stroke' type="color">
+        <label for="lineWidth">Line Width</label>
+        <input id="lineWidth" name='lineWidth' type="number" value="5">
+        <button id="clear">Clear</button>
+    </div>
+    <canvas id="drawing_board" width="800" height="600"></canvas>
+
+    <script>
+        const toolbar = document.getElementById("toolbar");
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('drawing_board');
+            let ctx = canvas.getContext('2d');
+            const ws = new WebSocket('ws://localhost:3000');
+
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000';
+            
+            let currentColor = ctx.strokeStyle;
+            let currentWidth = ctx.lineWidth;
+
+            let isDrawing = false;
+
+            toolbar.addEventListener("click", (e) => {
+                if (e.target.id === "clear") {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    console.log('cleared');
+                }
+            });
+
+            toolbar.addEventListener("change", (e) => {
+                if (e.target.id === "stroke") {
+                    ctx.strokeStyle = e.target.value;
+                    currentColor = ctx.strokeStyle;
+                    console.log('color');
+                }
+
+                if (e.target.id === "lineWidth") {
+                    ctx.lineWidth = e.target.value;
+                    currentWidth = e.target.value;
+                    console.log('width');
+                }
+            });
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                ctx.beginPath()
+                draw(e);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                const x = e.clientX - canvas.getBoundingClientRect().left;
+                const y = e.clientY - canvas.getBoundingClientRect().top;
+
+                // ctx.lineWidth = 2;
+                // ctx.lineCap = 'round';
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = currentWidth;
+
+                // ctx.beginPath();
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+
+
+                const color = ctx.strokeStyle;
+                const width = ctx.lineWidth;
+                // Send drawing data to the server
+                console.log("X: ", JSON.stringify({ x, y, color, width }));
+                ws.send(JSON.stringify({ x, y, color, width, isDrawing }));
+            }
+
+            function drawSocket(x,y, color, width, isDraw) {
+                if(isDraw) {
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = width;
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                }
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+
+            // Receive data from the server
+            ws.addEventListener('message', (event) => {
+                const data = JSON.parse(event.data);
+                console.log("data: ", data.x);
+
+                //draw received data
+                // ctx.beginPath();
+                drawSocket(data.x, data.y, data.color, data.width, data.isDrawing);
+
+                // const Userx = e.clientX - canvas.getBoundingClientRect().left;
+                // const Usery = e.clientY - canvas.getBoundingClientRect().top;
+                // ctx.moveTo(Userx, Usery);
+
+            });
+
+            ws.addEventListener('open', () => {
+                console.log('WebSocket connection opened');
+            });
+
+            ws.addEventListener('close', () => {
+                console.log('WebSocket connection closed');
+            });
+
+            ws.addEventListener('error', (error) => {
+                console.error('WebSocket error:', error);
+            });
+
+            function arrayBufferToBase64(buffer) {
+                const binary = String.fromCharCode.apply(null, buffer);
+                return btoa(binary);
+            }
+        });
+    </script>
+</section>
+</body>
+
+</html>

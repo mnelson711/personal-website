@@ -81,7 +81,7 @@
 .lower-left {
     float: left;
     width: 40%;
-    /* border: solid; */
+    border: solid;
     font-size: 20px;
     /* color:#675D50; */
     font-family: sans-serif;
@@ -326,4 +326,8 @@ button {
     color: white;
     border: solid;
     border-radius: 2px;
+}
+
+#chatbot-container {
+    background-color: blue;
 }
