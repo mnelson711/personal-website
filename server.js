@@ -3,6 +3,7 @@ const http = require("http");
 const WebSocket = require("ws");
 const fs = require("fs");
 const path = require('path');
+const socketIO = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
@@ -54,6 +55,35 @@ app.get("/resume", (req, res) => {
   });
 });
 
+
+app.get("/projects", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("projects.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
+app.get("/chatroom", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("chatroom.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
 wss.on("connection", (socket) => {
   console.log("New connection");
 
@@ -71,6 +101,23 @@ wss.on("connection", (socket) => {
     } catch (error) {
       console.error("Error parsing JSON:", error);
     }
+  });
+});
+
+//chatroom stuff
+const io = socketIO(server);
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  // Handle incoming messages
+  socket.on("message", (data) => {
+    io.emit("message", data);
+  });
+
+  // Handle disconnection
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
   });
 });
 
