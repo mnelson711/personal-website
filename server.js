@@ -84,6 +84,20 @@ app.get("/chatroom", (req, res) => {
   });
 });
 
+app.get("/trivia", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("trivia.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
 wss.on("connection", (socket) => {
   console.log("New connection");
 

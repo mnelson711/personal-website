@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Generator</title>
+</head>
+
+<body>
+
+    <h1>Trivia Generator</h1>
+    <p id="trivia-fact"></p>
+    <button onclick="getTrivia()">Get Trivia</button>
+    <button onclick="revealAnswer()">Reveal Answer</button>
+    <p id="answer"></p>
+    <button id="choice-one" onclick="checkAnswer(this.textContent)">Choice One</button>
+    <button id="choice-two" onclick="checkAnswer(this.textContent)">Choice two</button>
+    <button id="choice-three" onclick="checkAnswer(this.textContent)">Choiec Three</button>
+    <button id="choice-four" onclick="checkAnswer(this.textContent)">Choice Four</button>
+    <p id="result"></p>
+
+    <script>
+        let answer;
+        function getTrivia() {
+            // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint from Open Trivia API.
+            const apiUrl = 'https://opentdb.com/api.php?amount=1&type=multiple';
+
+            // Make a GET request to the Open Trivia API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Check if the response contains results
+                    if (data.results && data.results.length > 0) {
+                        let choices = data.results[0].incorrect_answers;
+                        const triviaQuestion = data.results[0].question;
+                        answer = data.results[0].correct_answer;
+                        choices.push(answer);
+                        console.log(data.results[0]);
+                        displayQuestion(triviaQuestion);
+                        displayChoices(choices);
+
+                    } else {
+                        displayQuestion('No trivia found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching trivia:', error);
+                    displayQuestion('Error fetching trivia.');
+                });
+        }
+
+        function revealAnswer() {
+            const answerElement = document.getElementById('answer');
+            answerElement.textContent = answer;
+        }
+
+        function displayQuestion(triviaFact) {
+            const triviaElement = document.getElementById('trivia-fact');
+            let cleaned_fact = triviaFact.replace("&quot;", '"');
+            cleaned_fact = triviaFact.replace(/&#039;/g, "'");
+            triviaElement.textContent = cleaned_fact;
+        }
+
+        function displayChoices(answers) {
+            let counter = 0;
+            const choiceOneElement  = document.getElementById('choice-one')
+            const choiceTwoElement = document.getElementById('choice-two')
+            const choiceThreeElement = document.getElementById('choice-three')
+            const choiceFourElement = document.getElementById('choice-four')
+
+            choiceOneElement.textContent = answers[0];
+            choiceTwoElement.textContent = answers[1];
+            choiceThreeElement.textContent = answers[2];
+            choiceFourElement.textContent = answers[3];
+
+        }
+
+        function checkAnswer(choice) {
+            const resultElement = document.getElementById('result');
+            console.log(choice, "choice")
+            console.log('actual answer', answer);
+            if (choice === answer) {
+                resultElement.textContent = "Correct!";
+            } else {
+                resultElement.textContent = "Thats Incorrect! The actual answer is " + answer;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
