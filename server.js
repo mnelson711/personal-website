@@ -105,21 +105,28 @@ wss.on("connection", (socket) => {
 });
 
 //chatroom stuff
-const io = socketIO(server);
+const chatroomIO = socketIO(server);
 
-io.on("connection", (socket) => {
+chatroomIO.on("connection", (socket) => {
   console.log("A user connected");
 
-  // Handle incoming messages
+  // Handle room joining
+  socket.on("join", (room) => {
+  socket.join(room);
+  console.log(`User joined room ${room}`);
+
+  // Handle incoming messages within the room
   socket.on("message", (data) => {
-    io.emit("message", data);
+    chatroomIO.to(room).emit("message", data);
   });
 
-  // Handle disconnection
+  // Handle disconnection within the room
   socket.on("disconnect", () => {
     console.log("User disconnected");
   });
+  });
 });
+
 
 const PORT = process.env.PORT || 3000;
 
