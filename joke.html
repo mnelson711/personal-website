@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Display</title>
+</head>
+
+<body>
+
+    <h1>Joke Display</h1>
+    <p id="joke"></p>
+    <button onclick="getJoke()">Get Joke</button>
+
+    <script>
+        function getJoke() {
+            // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint from JokeAPI.
+            const apiUrl = 'https://v2.jokeapi.dev/joke/Any';
+
+            // Make a GET request to the JokeAPI
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.type === 'single') {
+                        displayJoke(data.joke);
+                    } else if (data.type === 'twopart') {
+                        displayJoke(`${data.setup} ${data.delivery}`);
+                    } else {
+                        displayJoke('No joke found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching joke:', error);
+                    displayJoke('Error fetching joke.');
+                });
+        }
+
+        function displayJoke(joke) {
+            const jokeElement = document.getElementById('joke');
+            jokeElement.textContent = joke;
+        }
+    </script>
+
+</body>
+
+</html>
