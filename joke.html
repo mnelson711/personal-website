@@ -4,19 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joke Display</title>
+    <title>Joke API</title>
+    <link rel="stylesheet" href="joke.css">
 </head>
 
 <body>
 
-    <h1>Joke Display</h1>
-    <p id="joke"></p>
-    <button onclick="getJoke()">Get Joke</button>
+    <nav class="top-bar">
+        <a href="" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="draw" class="hvr-underline-from-center">Fun</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+
+    <div class="outer-div">
+        <h1 id="title">Joke Generator</h1>
+        <button onclick="getJoke()" class="button-29" role="button">Get Joke</button>
+        <p id="joke"></p>
+    </div>
 
     <script>
         function getJoke() {
             // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint from JokeAPI.
-            const apiUrl = 'https://v2.jokeapi.dev/joke/Any';
+            const apiUrl = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=racist,sexist,explicit';
 
             // Make a GET request to the JokeAPI
             fetch(apiUrl)

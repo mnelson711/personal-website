@@ -5,28 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Generator</title>
+    <link rel="stylesheet" href="trivia.css">
 </head>
 
 <body>
 
-    <h1>Trivia Generator</h1>
-    <p id="trivia-fact"></p>
-    <button onclick="getTrivia()">Get Trivia</button>
-    <button onclick="revealAnswer()">Reveal Answer</button>
-    <p id="answer"></p>
-    <button id="choice-one" onclick="checkAnswer(this.textContent)">Choice One</button>
-    <button id="choice-two" onclick="checkAnswer(this.textContent)">Choice two</button>
-    <button id="choice-three" onclick="checkAnswer(this.textContent)">Choiec Three</button>
-    <button id="choice-four" onclick="checkAnswer(this.textContent)">Choice Four</button>
-    <p id="result"></p>
+    <nav class="top-bar">
+        <a href="" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="draw" class="hvr-underline-from-center">Fun</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+
+    <h1 id="title">Trivia Generator</h1>
+
+    <div class="outer-div">
+        <button class="button-29" onclick="getTrivia()">Get Trivia</button>
+        <p id="trivia-fact"></p>
+        <p id="answer"></p>
+        <button class="button-29" id="choice-one" onclick="checkAnswer(this.textContent)">Choice One</button>
+        <button class="button-29" id="choice-two" onclick="checkAnswer(this.textContent)">Choice Two</button>
+        <button class="button-29" id="choice-three" onclick="checkAnswer(this.textContent)">Choice Three</button>
+        <button class="button-29" id="choice-four" onclick="checkAnswer(this.textContent)">Choice Four</button>
+        <!-- <p>sup</p> -->
+        <!-- <button class="button-29" onclick="revealAnswer()">Reveal Answer</button> -->
+        <p id="result"></p>
+    </div>
 
     <script>
         let answer;
         function getTrivia() {
             // Replace 'YOUR_API_ENDPOINT' with the actual API endpoint from Open Trivia API.
-            const apiUrl = 'https://opentdb.com/api.php?amount=1&type=multiple';
+            const apiUrl = 'https://opentdb.com/api.php?amount=1&category=18&type=multiple';
 
             // Make a GET request to the Open Trivia API
+            clearAnswer();
+            clearChoices();
+            clearResult();
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
@@ -38,6 +53,7 @@
                         choices.push(answer);
                         console.log(data.results[0]);
                         displayQuestion(triviaQuestion);
+                        shuffleList(choices);
                         displayChoices(choices);
 
                     } else {
@@ -53,6 +69,15 @@
         function revealAnswer() {
             const answerElement = document.getElementById('answer');
             answerElement.textContent = answer;
+        }
+
+        function clearAnswer() {
+            const answerElement = document.getElementById('answer');
+            answerElement.textContent = '';
+        }
+        function clearResult() {
+                const resultElement = document.getElementById('result');
+                resultElement.textContent = ' ';
         }
 
         function displayQuestion(triviaFact) {
@@ -76,6 +101,20 @@
 
         }
 
+        function clearChoices() {
+            let counter = 0;
+            const choiceOneElement = document.getElementById('choice-one')
+            const choiceTwoElement = document.getElementById('choice-two')
+            const choiceThreeElement = document.getElementById('choice-three')
+            const choiceFourElement = document.getElementById('choice-four')
+
+            choiceOneElement.textContent = '';
+            choiceTwoElement.textContent = '';
+            choiceThreeElement.textContent = '';
+            choiceFourElement.textContent = '';
+
+        }
+
         function checkAnswer(choice) {
             const resultElement = document.getElementById('result');
             console.log(choice, "choice")
@@ -86,6 +125,14 @@
                 resultElement.textContent = "Thats Incorrect! The actual answer is " + answer;
             }
         }
+
+        function shuffleList(list) {
+                for (let i = list.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    // Swap list[i] and list[j]
+                    [list[i], list[j]] = [list[j], list[i]];
+                }
+            }
     </script>
 
 </body>
