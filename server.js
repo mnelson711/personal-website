@@ -13,9 +13,10 @@ const wss = new WebSocket.Server({ server });
 const publicPath = path.join(__dirname, "public"); 
 app.use(express.static(publicPath));
 
-app.get("/draw", (req, res) => {
+
+app.get("/", (req, res) => {
   // Serve your HTML file
-  fs.readFile("draw.html", "utf8", (err, content) => {
+  fs.readFile("index.html", "utf8", (err, content) => {
     if (err) {
       console.error(err);
       res.writeHead(500);
@@ -27,7 +28,7 @@ app.get("/draw", (req, res) => {
   });
 });
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
   // Serve your HTML file
   fs.readFile("index.html", "utf8", (err, content) => {
     if (err) {
@@ -112,6 +113,34 @@ app.get("/jokes", (req, res) => {
   });
 });
 
+app.get("/snake", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("snakegame.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
+app.get("/hangman", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("hangman.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
 wss.on("connection", (socket) => {
   console.log("New connection");
 
@@ -152,6 +181,20 @@ chatroomIO.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected");
   });
+  });
+});
+
+app.get("/draw", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("draw.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
   });
 });
 

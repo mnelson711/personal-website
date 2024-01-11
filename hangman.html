@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="hangman.css">
+</head>
+
+<body>
+    <nav class="top-bar">
+        <a href="home" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="draw" class="hvr-underline-from-center">Fun</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+    <h1 id="title">Hangman Game</h1>
+    <div class="outer-div">
+        <div id="word-container"></div>
+        <input type="text" id="guess-input" maxlength="1" placeholder="Enter your guess">
+        <button class="button-29" onclick="guess()">Guess</button>
+        <div id="message"></div>
+        <div id="guesses"></div>
+        <canvas id="stickmanCanvas" width="200" height="300"></canvas>
+    </div>
+    <script src="hangman.js"></script>
+</body>
+
+</html>
