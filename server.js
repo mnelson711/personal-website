@@ -56,6 +56,20 @@ app.get("/resume", (req, res) => {
   });
 });
 
+app.get("/machinelearning", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("machinelearning.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
 
 app.get("/projects", (req, res) => {
   // Serve your HTML file
