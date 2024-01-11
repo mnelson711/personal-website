@@ -10,17 +10,26 @@
 </head>
 
 <body>
-    <section class="container">
-
-    <div id="toolbar">
-        <h1>Draw.</h1>
-        <label for="stroke">Stroke</label>
-        <input id="stroke" name='stroke' type="color">
-        <label for="lineWidth">Line Width</label>
-        <input id="lineWidth" name='lineWidth' type="number" value="5">
-        <button id="clear">Clear</button>
+    <nav class="top-bar">
+        <a href="home" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="draw" class="hvr-underline-from-center">Fun</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+    <h1 id="title">PictoChat</h1>
+    <div class="outer-div">
+        <div id="toolbar">
+            <!-- <h1>Draw.</h1> -->
+            <!-- <label for="stroke">Stroke</label> -->
+            <input id="stroke" name='stroke' type="color">
+            <!-- <label for="lineWidth">Line Width</label> -->
+            <input id="lineWidth" name='lineWidth' type="number" value="5">
+            <button class="button-29" id="clear">Clear</button>
+        </div>
+        <div>
+            <canvas id="drawing_board" width="700" height="450"></canvas>
+        </div>
     </div>
-    <canvas id="drawing_board" width="800" height="600"></canvas>
 
     <script>
         const toolbar = document.getElementById("toolbar");
@@ -30,7 +39,7 @@
             let ctx = canvas.getContext('2d');
             const ws = new WebSocket('ws://localhost:3000');
 
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 5;
             ctx.lineCap = 'round';
             ctx.strokeStyle = '#000';
             
@@ -145,7 +154,6 @@
             }
         });
     </script>
-</section>
 </body>
 
 </html>
