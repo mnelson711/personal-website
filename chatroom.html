@@ -5,20 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Room</title>
+    <link rel="stylesheet" href="chatroom.css">
 </head>
 
 <body>
-    <label for="roomInput">Enter Room Number:</label>
-    <input type="text" id="roomInput" placeholder="Room number">
-    <button onclick="joinRoom()">Join Room</button>
 
-    <label for="nameInput">Enter Username:</label>
+    <nav class="top-bar">
+        <a href="home" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+
+    <h1 id="title">Chatroom</h1>
+
+    <div class="outer-div">
+        <!-- this is where  -->
+        <div id="left-side">
+            left side
+            <input type="text" id="nameInput" placeholder="User123">
+            <button onclick="setUsername()">Submit</button>
+        </div>
+        <div id="right-side">
+            <!-- right side -->
+            <div id="room-number">
+                room number: 
+                <input type="text" id="roomInput" placeholder="Room number">
+                <button onclick="joinRoom()">Join Room</button>
+            </div>
+            <div id="messages">
+                convos go here
+                <div class="chat">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore architecto, quo veniam illum amet explicabo dolorum iusto totam error dolores nihil minus perspiciatis quisquam fuga ea beatae soluta enim! Culpa earum placeat quod ut nobis vel doloribus suscipit, voluptatem dolorum debitis dolores officia nisi accusamus repellendus optio ipsa non nihil!
+                </div>
+            </div>
+            <div id="send-message">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <!-- <label for="roomInput">Enter Room Number:</label> -->
+    <!-- <input type="text" id="roomInput" placeholder="Room number"> -->
+    <!-- <button onclick="joinRoom()">Join Room</button> -->
+
+    <!-- <label for="nameInput">Enter Username:</label>
     <input type="text" id="nameInput" placeholder="User123">
-    <button onclick="setUsername()">Submit</button>
+    <button onclick="setUsername()">Submit</button> -->
 
-    <div id="messages"></div>
+    <!-- <div id="messages"></div>
     <input type="text" id="messageInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
+    <button onclick="sendMessage()">Send</button> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
@@ -38,7 +74,7 @@
                 // Handle incoming messages within the room
                 socket.on('message', (data) => {
                     const messagesDiv = document.getElementById('messages');
-                    messagesDiv.innerHTML += `<p>${data}</p>`;
+                    messagesDiv.innerHTML += `<div class="chat">${data}</div>`;
                 });
             }
         }
