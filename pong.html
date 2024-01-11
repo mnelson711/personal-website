@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <link rel="stylesheet" href="pong.css">
+</head>
+
+<body>
+    <nav class="top-bar">
+        <a href="home" class="hvr-underline-from-center">Home</a>
+        <a href="resume" class="hvr-underline-from-center">Resume</a>
+        <a href="draw" class="hvr-underline-from-center">Fun</a>
+        <a href="projects" class="hvr-underline-from-center">Projects</a>
+    </nav>
+    <h1 id="title">Pong</h1>
+    <button class="button-29" onclick="startGame()">Start Game</button>
+    <div class="outer-div">
+        <canvas id="pongCanvas" width="800" height="400"></canvas>
+        <div id="score">Player: 0 - Computer: 0</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('pongCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+
+        // Paddle properties
+        const paddleWidth = 10;
+        const paddleHeight = 60;
+        let playerPaddle = { x: 10, y: canvas.height / 2 - paddleHeight / 2, dy: 4 };
+        let computerPaddle = { x: canvas.width - 20, y: canvas.height / 2 - paddleHeight / 2, dy: 3 };
+
+        // Ball properties
+        const ballSize = 10;
+        let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 5, dy: 3 };
+
+        // Scores
+        let playerScore = 0;
+        let computerScore = 0;
+
+        // Game loop
+        function gameLoop() {
+            clearCanvas();
+            movePaddles();
+            moveBall();
+            drawPaddles();
+            drawBall();
+            checkCollision();
+            updateScore();
+
+            // Repeat the game loop
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Clear the canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Move paddles
+        function movePaddles() {
+            // Move player paddle
+            if (playerPaddle.y + playerPaddle.dy > 0 && playerPaddle.y + playerPaddle.dy + paddleHeight < canvas.height) {
+                playerPaddle.y += playerPaddle.dy;
+            }
+
+            // Move computer paddle based on ball position
+            if (ball.y < computerPaddle.y + paddleHeight / 2) {
+                computerPaddle.y -= computerPaddle.dy;
+            } else {
+                computerPaddle.y += computerPaddle.dy;
+            }
+
+            // Ensure paddles stay within the canvas bounds
+            playerPaddle.y = Math.max(0, Math.min(playerPaddle.y, canvas.height - paddleHeight));
+            computerPaddle.y = Math.max(0, Math.min(computerPaddle.y, canvas.height - paddleHeight));
+        }
+
+        // Move the ball
+        function moveBall() {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // Check if the ball hits the top or bottom wall
+            if (ball.y + ball.dy > canvas.height - ballSize || ball.y + ball.dy < 0) {
+                ball.dy = -ball.dy;
+            }
+
+            // Check if the ball hits the paddles
+            if (
+                (ball.x + ball.dx < playerPaddle.x + paddleWidth &&
+                    ball.y + ball.dy > playerPaddle.y &&
+                    ball.y + ball.dy < playerPaddle.y + paddleHeight) ||
+                (ball.x + ball.dx > computerPaddle.x - ballSize &&
+                    ball.y + ball.dy > computerPaddle.y &&
+                    ball.y + ball.dy < computerPaddle.y + paddleHeight)
+            ) {
+                ball.dx = -ball.dx;
+            }
+
+            // Check if the ball goes out of bounds (scoring points)
+            if (ball.x + ball.dx > canvas.width) {
+                playerScore++;
+                resetBall();
+            } else if (ball.x + ball.dx < 0) {
+                computerScore++;
+                resetBall();
+            }
+        }
+
+        // Draw paddles on the canvas
+        function drawPaddles() {
+            ctx.fillStyle = '#00f'; // Blue color
+            ctx.fillRect(playerPaddle.x, playerPaddle.y, paddleWidth, paddleHeight);
+
+            ctx.fillStyle = '#f00'; // Red color
+            ctx.fillRect(computerPaddle.x - paddleWidth, computerPaddle.y, paddleWidth, paddleHeight);
+        }
+
+        // Draw the ball on the canvas
+        function drawBall() {
+            ctx.fillStyle = '#000'; // Black color
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Check for collisions and update the game state
+        function checkCollision() {
+            // Check if the player paddle hits the top or bottom wall
+            if (playerPaddle.y < 0 || playerPaddle.y + paddleHeight > canvas.height) {
+                playerPaddle.dy = -playerPaddle.dy;
+            }
+
+            // Ensure computer paddle stays within canvas bounds
+            computerPaddle.y = Math.max(0, Math.min(computerPaddle.y, canvas.height - paddleHeight));
+        }
+
+        // Reset the ball position
+        function resetBall() {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx = -ball.dx; // Reverse direction
+        }
+
+        // Update the score display
+        function updateScore() {
+            scoreDisplay.textContent = `Player: ${playerScore} - Computer: ${computerScore}`;
+        }
+
+        // Handle keyboard input to move the player's paddle
+        window.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    playerPaddle.dy = -4; // Move paddle up
+                    break;
+                case 'ArrowDown':
+                    playerPaddle.dy = 4; // Move paddle down
+                    break;
+            }
+        });
+
+        // Stop moving the player's paddle when the arrow key is released
+        window.addEventListener('keyup', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                    playerPaddle.dy = 0; // Stop paddle movement
+                    break;
+            }
+        });
+
+        // Start the game loop
+        // gameLoop();
+        function startGame() {
+            gameLoop();
+        }
+    </script>
+</body>
+
+</html>
