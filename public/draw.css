@@ -265,7 +265,7 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
     cursor: cell;
 }
 #toolbar {
-    /* background-color: #B46060; */
+    background-color: #B46060;
     vertical-align: middle;
     border: solid 4px #4D4D4D;
     border-top-right-radius: 4px;

@@ -109,16 +109,27 @@
                 if(isDraw) {
                     ctx.strokeStyle = color;
                     ctx.lineWidth = width;
+                    // ctx.moveTo(x, y);
                     ctx.lineTo(x, y);
                     ctx.stroke();
                     ctx.beginPath();
                     ctx.moveTo(x, y);
+
+                    // ctx.beginPath();
+                    // ctx.moveTo(x, y);
+                    // ctx.lineTo();
+                    // ctx.stroke();
+
+                } else {
+                    ctx.beginPath();
                 }
             }
 
             function stopDrawing() {
                 isDrawing = false;
                 ctx.beginPath();
+
+                ws.send(JSON.stringify({ x: 0, y: 0, color: 0, width: 0, isDrawing }));
             }
 
             // Receive data from the server

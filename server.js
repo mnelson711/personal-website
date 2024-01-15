@@ -7,7 +7,6 @@ const socketIO = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
 
 // Serve static files from the 'public' directory
 const publicPath = path.join(__dirname, "public"); 
@@ -168,7 +167,7 @@ app.get("/pong", (req, res) => {
     }
   });
 });
-
+const wss = new WebSocket.Server({ server });
 wss.on("connection", (socket) => {
   console.log("New connection");
 
@@ -176,11 +175,12 @@ wss.on("connection", (socket) => {
     const message = data instanceof Buffer ? data.toString("utf-8") : data;
 
     try {
-      const parsedData = JSON.parse(message);
+      // const parsedData = JSON.parse(message);
 
       wss.clients.forEach((client) => {
         if (client !== socket && client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(parsedData));
+          // client.send(JSON.stringify(parsedData));
+          client.send(message);
         }
       });
     } catch (error) {
