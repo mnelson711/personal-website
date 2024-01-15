@@ -1,26 +1,34 @@
+@font-face {
+    font-family: 'Overpass';
+    src: url('overpass-bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: white;
-    font-family: sans-serif;
+    background-color: #FFB7C3;
+    font-family: Overpass;
     color: #4D4D4D;
 }
 
-@font-face {
+
+/* @font-face {
     font-family: Elianto;
     src: url(san-marino-beach-font/SanMarinoBeach-2OOLW.ttf);
-}
+} */
 
 .top-bar {
-    background-color: #B46060;
-    font-family: sans-serif;
+    background-color: #004369;
+    font-family: Overpass;
     justify-content: space-between;
     /* text-align:center; */
     padding: .5%;
     /* text-align: center; */
     border-color: black;
-    border-bottom: solid;
+    /* border-bottom: solid; */
     border-width: 2px;
     /* display: inline-flex; */
     width: 100%;
@@ -30,11 +38,11 @@
 .heading-link {
     color: #4D4D4D;
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: Overpass;
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 
 }
 
@@ -48,35 +56,27 @@
 } */
 
 #title {
-    color: #B46060;
+    color: #01949A;
     text-align: center;
     font-weight: bolder;
     font-size: 60pt;
+    font-family: Overpass;
 }
 
 .outer-div {
     justify-content: center;
     text-align: center;
-    display: flex;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 5%;
 }
 
-.section {
-    background-color: #4D4D4D;
-    padding: 2%;
-    margin: 1%;
-    margin-top: 12%;
-    /* display: table-cell; */
-    width: 300px;
-    height: 300px;
-    border: solid;
-    border-color: black;
-    border-radius: 2%;
-}
+
 
 
 h1 {
     color: #4D4D4D;
-    font-family: sans-serif;
+    font-family: Overpass;
 }
 
 @-webkit-keyframes hvr-pulse {
@@ -136,11 +136,11 @@ h1 {
     overflow: hidden;
     color: white;
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: Overpass;
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 }
 
 .hvr-underline-from-center:before {
@@ -169,7 +169,7 @@ h1 {
 
 
 
-HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
+HTML CSSResult Skip Results Iframe EDIT ON { @-webkit-keyframes fade {
     0% {
         opacity: 0;
     }
@@ -177,7 +177,7 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
     100% {
         opacity: 1;
     }
-}
+}}
 
 @-moz-keyframes fade {
     0% {
@@ -229,8 +229,10 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
     background-color: transparent;
     width: 400px;
     height: 300px;
-    border: 1px solid #f1f1f1;
+    /* border: 1px solid #f1f1f1; */
     perspective: 1000px;
+    margin-bottom: 4%;
+    border-radius: 1%;
     /* Remove this if you don't want the 3D effect */
 }
 
@@ -262,13 +264,30 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
 
 /* Style the front side (fallback if image is missing) */
 .flip-card-front {
-    background-color: #bbb;
+    background-color: #004369;
     color: black;
 }
 
 /* Style the back side */
 .flip-card-back {
-    background-color: dodgerblue;
+    background-color: #004369;
     color: white;
+    padding: 7%;
     transform: rotateY(180deg);
+    text-align: left;
+}
+
+.flip-card-back-text {
+    color: #004369;
+    background-color: white;
+    /* font-weight: bold; */
+    font-size: 10pt;
+    padding: 2%;
+    height: 80%;
+}
+
+.flip-card-front-text {
+    background-color: #004369;
+    color: white;
+    padding-top: 3%;
 }

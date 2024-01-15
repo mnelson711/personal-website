@@ -227,6 +227,85 @@ app.get("/draw", (req, res) => {
 });
 
 
+//Rock Paper Scissors Multiplayer
+const RPSio = socketIO(server);
+const rooms = {};
+
+RPSio.on("connection", (socket) => {
+  console.log("A user connected");
+
+  // Handle joining a room
+  socket.on("joinRoom", (roomId) => {
+    if (!rooms[roomId]) {
+      rooms[roomId] = {
+        players: [socket.id],
+        choices: {},
+      };
+      socket.join(roomId);
+      RPSio.to(roomId).emit("message", "Waiting for an opponent to join...");
+    } else if (rooms[roomId].players.length === 1) {
+      rooms[roomId].players.push(socket.id);
+      socket.join(roomId);
+      RPSio.to(roomId).emit("message", "Both players joined! Make your choice.");
+    } else {
+      socket.emit("message", "Room is full. Please try another room.");
+    }
+  });
+
+  // Handle player choice
+  socket.on("makeChoice", (data) => {
+    const { roomId, choice } = data;
+    rooms[roomId].choices[socket.id] = choice;
+
+    if (Object.keys(rooms[roomId].choices).length === 2) {
+      const player1Choice = rooms[roomId].choices[rooms[roomId].players[0]];
+      const player2Choice = rooms[roomId].choices[rooms[roomId].players[1]];
+
+      // Determine winner
+      let winner;
+      if (player1Choice === player2Choice) {
+        winner = "It's a tie!";
+      } else if (
+        (player1Choice === "rock" && player2Choice === "scissors") ||
+        (player1Choice === "paper" && player2Choice === "rock") ||
+        (player1Choice === "scissors" && player2Choice === "paper")
+      ) {
+        winner = `Player ${
+          socket.id === rooms[roomId].players[0] ? "1" : "2"
+        } wins!`;
+      } else {
+        winner = `Player ${
+          socket.id === rooms[roomId].players[1] ? "1" : "2"
+        } wins!`;
+      }
+
+      RPSio.to(roomId).emit("gameResult", {
+        winner,
+        choices: rooms[roomId].choices,
+      });
+    }
+  });
+
+  // Handle disconnection
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+});
+
+app.get("/rockpaperscissors", (req, res) => {
+  // Serve your HTML file
+  fs.readFile("rps.html", "utf8", (err, content) => {
+    if (err) {
+      console.error(err);
+      res.writeHead(500);
+      res.end("Internal Server Error");
+    } else {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(content);
+    }
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => {

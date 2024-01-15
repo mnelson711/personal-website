@@ -18,7 +18,7 @@ body {
 }
 
 .top-bar {
-    background-color: #B46060;
+    background-color: #004369;
     font-family: sans-serif;
     justify-content: space-between;
     /* text-align:center; */
@@ -40,7 +40,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 
 }
 
@@ -54,7 +54,7 @@ body {
 } */
 
 #title {
-    color: #B46060;
+    color: #01949A;
     text-align: center;
     font-weight: bolder;
     font-size: 60pt;
@@ -132,7 +132,7 @@ h1 {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 }
 
 .hvr-underline-from-center:before {
@@ -265,7 +265,7 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
     cursor: cell;
 }
 #toolbar {
-    background-color: #B46060;
+    background-color: #004369;
     vertical-align: middle;
     border: solid 4px #4D4D4D;
     border-top-right-radius: 4px;

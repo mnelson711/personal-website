@@ -13,7 +13,7 @@
 }
 
 .top-bar {
-    background-color: #B46060;
+    background-color: #004369;
     font-family: sans-serif;
     justify-content: space-between;
     /* text-align:center; */
@@ -34,7 +34,7 @@
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 
 }
 
@@ -47,8 +47,8 @@
     color: black;
 } */
 
-#title {
-    color: #B46060;
+# {
+    color: #004369;
     text-align: center;
     font-weight: bolder;
     font-size: 60pt;
@@ -125,7 +125,7 @@ h1 {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    background-color: #B46060;
+    background-color: #004369;
 }
 
 .hvr-underline-from-center:before {

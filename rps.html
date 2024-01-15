@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Rock Paper Scissors</title>
+</head>
+
+<body>
+    <h1>Multiplayer Rock Paper Scissors</h1>
+    <div id="room-form">
+        <label for="room-id">Enter Room ID:</label>
+        <input type="text" id="room-id" />
+        <button onclick="joinRoom()">Join Room</button>
+    </div>
+    <div id="game-container" style="display: none;">
+        <h2>Game Room: <span id="room-name"></span></h2>
+        <p id="game-message"></p>
+        <button onclick="makeChoice('rock')">Rock</button>
+        <button onclick="makeChoice('paper')">Paper</button>
+        <button onclick="makeChoice('scissors')">Scissors</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        function joinRoom() {
+            const roomId = document.getElementById('room-id').value;
+            socket.emit('joinRoom', roomId);
+            document.getElementById('room-form').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+            document.getElementById('room-name').innerText = roomId;
+        }
+
+        function makeChoice(choice) {
+            const roomId = document.getElementById('room-name').innerText;
+            socket.emit('makeChoice', { roomId, choice });
+        }
+
+        socket.on('message', (message) => {
+            document.getElementById('game-message').innerText = message;
+        });
+
+        socket.on('gameResult', (data) => {
+            const { winner, choices } = data;
+            document.getElementById('game-message').innerText = winner;
+            console.log('Player 1 choice:', choices[Object.keys(choices)[0]]);
+            console.log('Player 2 choice:', choices[Object.keys(choices)[1]]);
+        });
+    </script>
+</body>
+
+</html>
