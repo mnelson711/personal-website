@@ -9,9 +9,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #FFF4E0;
+    background-color: #FFB7C3;
     font-family: Overpass;
-    color:#4D4D4D;
+    color:white;
 }
 
 @font-face {
@@ -27,8 +27,8 @@
     /* text-align:center; */
     padding: .5%;
     /* text-align: center; */
-    border-color: black;
-    border-bottom: solid;
+    /* border-color: black;
+    border-bottom: solid; */
     border-width: 2px;
     /* display: inline-flex; */
     width: 100%;
@@ -36,7 +36,7 @@
 }
 
 .heading-link {
-    color: #4D4D4D;
+    color: white;
     text-decoration: none;
     font-family: Overpass;
     font-size: 20px;
@@ -145,7 +145,7 @@
 
 
 .links-text {
-    color: #4D4D4D;
+    color: white;
     font-family: Overpass;
 }
 
@@ -164,7 +164,7 @@
 }
 
 h1 {
-    color: #4D4D4D;
+    color: white;
     font-family: Overpass;
 }
 
@@ -239,7 +239,7 @@ h1 {
     left: 51%;
     right: 51%;
     bottom: 0;
-    background: #4D4D4D;
+    background: white;
     height: 4px;
     -webkit-transition-property: left, right;
     transition-property: left, right;

@@ -97,7 +97,7 @@ function drawSnake() {
   snake.forEach((segment) => {
     ctx.fillStyle = "#00f";
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
-    ctx.strokeStyle = "#fff";
+    ctx.strokeStyle = "#00f";
     ctx.strokeRect(segment.x, segment.y, snakeSize, snakeSize);
   });
 }
@@ -157,7 +157,7 @@ function generateFood() {
 function drawFood() {
   ctx.fillStyle = "#f00";
   ctx.fillRect(food.x, food.y, snakeSize, snakeSize);
-  ctx.strokeStyle = "#fff";
+  ctx.strokeStyle = "#f00";
   ctx.strokeRect(food.x, food.y, snakeSize, snakeSize);
 }
 

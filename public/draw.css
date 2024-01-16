@@ -2,9 +2,9 @@
     margin: 0;
     padding: 0;
     /* box-sizing: border-box; */
-    background-color: white;
+    background-color: #FFB7C3;
     font-family: sans-serif;
-    color: #4D4D4D;
+    color: white;
 
 }
 
@@ -23,10 +23,6 @@ body {
     justify-content: space-between;
     /* text-align:center; */
     padding: .5%;
-    /* text-align: center; */
-    border-color: black;
-    border-bottom: solid;
-    border-width: 2px;
     /* display: inline-flex; */
     width: 100%;
     text-align: left;
@@ -34,7 +30,7 @@ body {
 }
 
 .heading-link {
-    color: #4D4D4D;
+    color: white;
     text-decoration: none;
     font-family: sans-serif;
     font-size: 20px;
@@ -67,7 +63,7 @@ p {
 }
 
 h1 {
-    color: #4D4D4D;
+    color: white;
     font-family: sans-serif;
 }
 
@@ -142,7 +138,7 @@ h1 {
     left: 51%;
     right: 51%;
     bottom: 0;
-    background: #4D4D4D;
+    background: white;
     height: 4px;
     -webkit-transition-property: left, right;
     transition-property: left, right;
@@ -260,14 +256,14 @@ HTML CSSResult Skip Results Iframe EDIT ON @-webkit-keyframes fade {
 
 #drawing_board {
     /* border-color: black; */
-    border: solid 4px #4D4D4D;
+    border: solid 4px white;
     /* margin-top: 2%; */
     cursor: cell;
 }
 #toolbar {
     background-color: #004369;
     vertical-align: middle;
-    border: solid 4px #4D4D4D;
+    border: solid 4px white;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     border-bottom: 0px;

@@ -4,7 +4,7 @@
     box-sizing: border-box;
     background-color: white;
     font-family: sans-serif;
-    color: #4D4D4D;
+    color: white;
 }
 
 @font-face {
@@ -28,7 +28,7 @@
 }
 
 .heading-link {
-    color: #4D4D4D;
+    color: white;
     text-decoration: none;
     font-family: sans-serif;
     font-size: 20px;
@@ -58,7 +58,7 @@
     /* justify-content: center; */
     /* text-align: center; */
     display: flex;
-    background-color: #4D4D4D;
+    background-color: white;
     width: 80%;
     animation-name: fade;
     animation-duration: 3s;
@@ -105,7 +105,7 @@
 }
 
 .section {
-    background-color: #4D4D4D;
+    background-color: white;
     padding: 2%;
     margin: 1%;
     margin-top: 12%;
@@ -119,7 +119,7 @@
 
 
 h1 {
-    color: #4D4D4D;
+    color: white;
     font-family: sans-serif;
 }
 
@@ -194,7 +194,7 @@ h1 {
     left: 51%;
     right: 51%;
     bottom: 0;
-    background: #4D4D4D;
+    background: white;
     height: 4px;
     -webkit-transition-property: left, right;
     transition-property: left, right;

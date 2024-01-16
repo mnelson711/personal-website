@@ -11,7 +11,7 @@
     box-sizing: border-box;
     background-color: #FFB7C3;
     font-family: Overpass;
-    color: #4D4D4D;
+    color: white;
 }
 
 
@@ -36,7 +36,7 @@
 }
 
 .heading-link {
-    color: #4D4D4D;
+    color: white;
     text-decoration: none;
     font-family: Overpass;
     font-size: 20px;
@@ -75,7 +75,7 @@
 
 
 h1 {
-    color: #4D4D4D;
+    color: white;
     font-family: Overpass;
 }
 
@@ -150,7 +150,7 @@ h1 {
     left: 51%;
     right: 51%;
     bottom: 0;
-    background: #4D4D4D;
+    background: white;
     height: 4px;
     -webkit-transition-property: left, right;
     transition-property: left, right;
@@ -278,12 +278,21 @@ HTML CSSResult Skip Results Iframe EDIT ON { @-webkit-keyframes fade {
 }
 
 .flip-card-back-text {
-    color: #004369;
-    background-color: white;
+    color: white;
+    background-color: #004369;
     /* font-weight: bold; */
     font-size: 10pt;
-    padding: 2%;
+    /* padding: 2%; */
     height: 80%;
+    margin-top: 4%;
+}
+
+.flip-card-back-link {
+    color: white;
+    background-color: #004369;
+    /* font-weight: bold; */
+    font-size: 14pt;
+    text-decoration: none;
 }
 
 .flip-card-front-text {
