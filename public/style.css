@@ -9,9 +9,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #FFB7C3;
+    /* background-color: #FFB7C3; */
+    background-color: #F8F7FF;
     font-family: Overpass;
-    color:white;
+    /* color:white; */
+    color: #004369;
 }
 
 @font-face {
@@ -82,6 +84,7 @@
 .title {
 
     color: white;
+    color: #004369;
     font-family: Overpass;
     /* font-family: futura; */
     font-size: 900%;
